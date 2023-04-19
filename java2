@@ -1,0 +1,25 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class RecentlyPlayedSongsTest {
+
+    @Test
+    void testRecentlyPlayedSongs() {
+        RecentlyPlayedSongs store = new RecentlyPlayedSongs(3);
+        String user = "user1";
+        store.addSong(user, "S1");
+        store.addSong(user, "S2");
+        store.addSong(user, "S3");
+
+        assertArrayEquals(new String[]{"S1", "S2", "S3"}, store.getRecentlyPlayedSongs(user));
+
+        store.addSong(user, "S4");
+        assertArrayEquals(new String[]{"S2", "S3", "S4"}, store.getRecentlyPlayedSongs(user));
+
+        store.addSong(user, "S2");
+        assertArrayEquals(new String[]{"S3", "S4", "S2"}, store.getRecentlyPlayedSongs(user));
+
+        store.addSong(user, "S1");
+        assertArrayEquals(new String[]{"S4", "S2", "S1"}, store.getRecentlyPlayedSongs(user));
+    }
+}
